@@ -1,0 +1,52 @@
+{
+  "_comment": "Per-stage weighting profiles for the Godmode decision engine. Weights for each stage sum to 1.0. Adjust as the calibration data accumulates.",
+  "_version": "0.1.0",
+  "_last_updated": "2026-07-30",
+
+  "mvp-speed": {
+    "_description": "User wants to ship fast. Optimizes for learning curve, DX, community size, and cost. Performance/maturity matter less than time-to-first-user.",
+    "maturity": 0.10,
+    "community": 0.20,
+    "learning_curve": 0.25,
+    "performance": 0.05,
+    "cost": 0.15,
+    "dx": 0.20,
+    "production_readiness": 0.05
+  },
+
+  "production-scale": {
+    "_description": "User is going to real users, real traffic, real money. Optimizes for maturity, performance, observability, and long-term maintainability.",
+    "maturity": 0.25,
+    "community": 0.15,
+    "learning_curve": 0.05,
+    "performance": 0.20,
+    "cost": 0.10,
+    "dx": 0.10,
+    "production_readiness": 0.15
+  },
+
+  "research-experimental": {
+    "_description": "User is exploring, prototyping novel ideas. Optimizes for innovation, flexibility, performance ceiling, and DX. Maturity matters least.",
+    "maturity": 0.05,
+    "community": 0.10,
+    "learning_curve": 0.10,
+    "performance": 0.20,
+    "cost": 0.10,
+    "dx": 0.20,
+    "production_readiness": 0.05,
+    "innovation": 0.20
+  },
+
+  "enterprise-compliance": {
+    "_description": "User is in a regulated environment (finance, healthcare, gov). Optimizes for maturity, vendor support, security, and audit-ability.",
+    "maturity": 0.25,
+    "community": 0.10,
+    "learning_curve": 0.05,
+    "performance": 0.10,
+    "cost": 0.10,
+    "dx": 0.05,
+    "production_readiness": 0.15,
+    "security": 0.15,
+    "support": 0.05
+  }
+}
