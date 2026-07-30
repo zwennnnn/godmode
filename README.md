@@ -4,7 +4,27 @@
 >
 > A curated knowledge base of **117+ technologies** from [roadmap.sh](https://roadmap.sh), organized across **17 roadmaps**, with a working **weighted-scoring engine** that picks the best tech for your project.
 
-[![Install with skills.sh](https://img.shields.io/badge/skills.sh-install-blue)](https://skills.sh) [![GitHub](https://img.shields.io/badge/GitHub-zwennnnn%2Fgodmode-black)](https://github.com/zwennnnn/godmode) [![MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+[![Install with skills.sh](https://img.shields.io/badge/skills.sh-install-blue)](https://skills.sh) [![GitHub](https://img.shields.io/badge/GitHub-zwennnnn%2Fgodmode-black)](https://github.com/zwennnnn/godmode) [![MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/) [![Contributors](https://img.shields.io/badge/contributors-welcome-orange)](#-contributors)
+
+When you ask an AI coding agent (Claude Code, Cursor, Codex, etc.) "what database should I use" or "what's the best stack for a SaaS MVP", godmode:
+
+1. Reads the user's profile from `godmode.md`.
+2. Picks the right stage profile (`mvp-speed`, `production-scale`, `research-experimental`, `enterprise-compliance`).
+3. Runs `python scripts/score.py` to compute weighted scores from the curated `.md` files.
+4. Returns **top 3 recommendations** with full transparency — weights, scores, sources, and trade-offs.
+5. Logs the decision to `godmode.md` so the next session continues seamlessly.
+
+---
+
+## 👥 Contributors
+
+godmode is built by a community. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the full list.
+
+| Core maintainer | First external contributor |
+|----------------|---------------------------|
+| [@zwennnnn](https://github.com/zwennnnn) — creator | [@birkansiser](https://github.com/birkansiser) — contributor onboarding |
+
+Want to contribute? See [`.github/CONTRIBUTING.md`](.github/CONTRIBUTING.md) for guidelines.
 
 When you ask an AI coding agent (Claude Code, Cursor, Codex, etc.) "what database should I use" or "what's the best stack for a SaaS MVP", godmode:
 

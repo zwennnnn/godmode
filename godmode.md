@@ -112,23 +112,28 @@ All 4 roadmaps researched, written, and validated. 42 tech files total. Godmode 
   - **Phase 19** complete (TOOLING + PUBLISH):
     - `scripts/score.py` — weighted-scoring engine (working, tested).
     - `scripts/research.py` — scaffolder for new tech MDs.
-    - `SKILL.md` (root) — Agent Skills manifest with keywords/author/version frontmatter.
+    - `SKILL.md` (root) — Agent Skills manifest.
     - **🟢 Published to GitHub**: `https://github.com/zwennnnn/godmode`.
   - **Phase 20** complete (SKILLS.SH INTEGRATION):
-    - `npx skills use zwennnnn/godmode@godmode` **works** — SKILL.md fetched + parsed correctly by the Vercel skills CLI.
-    - README + SKILL.md enriched with: keywords frontmatter, install badge, `npx skills add` instructions.
-    - Subagent research: **skills.sh has no public submit form.** Indexing driven by install telemetry + Vercel Labs curation. Known issue #705 — valid skills may not auto-appear in `npx skills find`.
+    - `npx skills use zwennnnn/godmode@godmode` **works** — SKILL.md fetched + parsed.
+    - SKILL.md enriched with: keywords/author/version/license/homepage.
+    - README.md has install badge + primary `npx skills add` path.
+    - Subagent research: no public submit form; back-channel issue may be needed.
+  - **Phase 21** complete (CONTRIBUTOR ONBOARDING):
+    - Created `.github/CONTRIBUTING.md` — full contributor guide.
+    - Created `CONTRIBUTORS.md` — credits + first-external-contributor table.
+    - Added **`@birkansiser`** as the first external contributor.
+    - README.md has a Contributors section + badge.
 - **Decisions made**:
-  - Skill is technically installable (proven via `use` command).
-  - Discoverability via `npx skills find` requires either install volume or a back-channel issue on `vercel-labs/skills` requesting indexing.
-  - All skill metadata (keywords, author, version, install, homepage) populated per the spec.
-- **Next**: User files an indexing request issue on `vercel-labs/skills` (back-channel) OR waits for auto-indexing; commit + push updated SKILL.md + README.
+  - **Phase 21 scope**: User asked to add `birkansiser` as a contributor — created proper contribution infrastructure so future contributors have a clear path.
+  - All files validated 0 errors.
+- **Next**: User pushes Phase 20 + Phase 21 commits to GitHub. Optionally opens the back-channel issue on `vercel-labs/skills` for indexing.
 
 ---
 
 ## 🏆 STATUS — 2026-07-30
 
-# 🟢 GODMODE v1.0 — LIVE + SKILLS.SH READY
+# 🟢 GODMODE v1.0.1 — LIVE + CONTRIBUTOR-READY
 
 **GitHub:** [https://github.com/zwennnnn/godmode](https://github.com/zwennnnn/godmode)
 
@@ -142,6 +147,8 @@ All 4 roadmaps researched, written, and validated. 42 tech files total. Godmode 
 | Agent Skills manifest | ✅ `SKILL.md` (root, enriched) |
 | skills.sh guide | ✅ `skills.md` (root) |
 | **Install test** | ✅ `npx skills use zwennnnn/godmode@godmode` works |
+| **Contributor system** | ✅ `.github/CONTRIBUTING.md` + `CONTRIBUTORS.md` |
+| **First external contributor** | ✅ `@birkansiser` |
 | **Discoverability** | ⏳ Awaiting `npx skills find` indexing |
 | **GitHub repo** | ✅ `zwennnnn/godmode` (public) |
 
@@ -149,6 +156,20 @@ All 4 roadmaps researched, written, and validated. 42 tech files total. Godmode 
 ```bash
 npx skills add zwennnnn/godmode
 ```
+
+**Contribute:**
+- See [`.github/CONTRIBUTING.md`](.github/CONTRIBUTING.md) for guidelines.
+- See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the contributor list.
+
+---
+
+### Phase 21 (CONTRIBUTOR ONBOARDING) *(COMPLETE 2026-07-30)*
+
+- [x] Created `.github/CONTRIBUTING.md` — full contributor guide (ways to contribute, quick start, add tech, new category, reporting bugs, code of conduct)
+- [x] Created `CONTRIBUTORS.md` — credits + first-external-contributor table
+- [x] Added `@birkansiser` as first external contributor
+- [x] README.md — Contributors section + "Contributors welcome" badge
+- [ ] **Pending user action**: commit + push via GitHub Desktop
 
 ---
 
