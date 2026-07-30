@@ -108,6 +108,35 @@ All 4 roadmaps researched, written, and validated. 42 tech files total. Godmode 
 
 - **Date**: 2026-07-30
 - **Worked on**:
+  - **Phase 22** complete (FIRST CODE CONTRIBUTION — from the `birkansiser/godmode` fork):
+    - Fixed a real bug in `README.md`: the "When you ask an AI coding agent…" intro block was duplicated (it got copied when the Contributors section was inserted). Removed the second copy.
+    - Created `.github/PULL_REQUEST_TEMPLATE.md` — encodes the repo's own rules as a reviewer checklist (validator 0 errors, dated sources, 3+ sources per tech, no invented scores, English-only MDs, `rules.md` untouched, one tech per file) plus before/after scoring diff + sources sections.
+    - `.github/CONTRIBUTING.md` quick start now points at the PR template.
+    - Validator re-run: `PASS: 0 error(s) across 134 file(s)`.
+    - Branch `docs/pr-template-and-readme-dedupe`, commit `3933cb1` (3 files, +58 / −9).
+  - **Phases 1–21** complete (see below).
+- **Decisions made**:
+  - **Fork workflow**: local repo is `birkansiser/godmode` with `upstream = zwennnnn/godmode`. Contribution work goes on a topic branch, PR targets upstream `main`.
+  - **`godmode.md` stays out of the PR** — session memory is per-maintainer and would conflict on merge. Logged on `main` instead, not on the topic branch.
+- **Next**: Push `docs/pr-template-and-readme-dedupe` via GitHub Desktop (CLI push blocked on the credential dialog), then open the PR against `zwennnnn/godmode`.
+
+---
+
+### Phase 22 (FIRST CODE CONTRIBUTION) *(COMPLETE 2026-07-30)*
+
+- [x] `README.md` — removed duplicated intro block (lines 29–35 duplicated 9–16)
+- [x] `.github/PULL_REQUEST_TEMPLATE.md` — created (checklist derived from `rules.md` + `CONTRIBUTING.md`)
+- [x] `.github/CONTRIBUTING.md` — quick start links the PR template
+- [x] `python scripts/validate-md.py --all` → 0 errors
+- [x] Branch + commit `3933cb1` on `docs/pr-template-and-readme-dedupe`
+- [ ] **Pending user action**: push branch (GitHub Desktop) + open PR to `zwennnnn/godmode`
+
+---
+
+## Previous Session
+
+- **Date**: 2026-07-30
+- **Worked on**:
   - **Phases 1–18** complete (17 roadmaps, 117 tech MDs + skills.md).
   - **Phase 19** complete (TOOLING + PUBLISH):
     - `scripts/score.py` — weighted-scoring engine (working, tested).
@@ -210,6 +239,7 @@ npx skills add zwennnnn/godmode
 
 ## Recent Decisions
 
+- 2026-07-30 — **FIRST CODE CONTRIBUTION (Phase 22)**: README duplicate-intro bug fixed + `.github/PULL_REQUEST_TEMPLATE.md` added, from the `birkansiser/godmode` fork. Branch `docs/pr-template-and-readme-dedupe`, commit `3933cb1`. PR to upstream pending.
 - 2026-07-30 — **🏆 CONTRIBUTOR ONBOARDING COMPLETE**: `.github/CONTRIBUTING.md` + `CONTRIBUTORS.md` created. `@birkansiser` added as first external contributor. README has Contributors section + badge.
 - 2026-07-30 — **🏆 SKILLS.SH INTEGRATION COMPLETE**: SKILL.md enriched with keywords/author/version; README has install badge; `npx skills use zwennnnn/godmode` works. Awaiting back-channel indexing issue on `vercel-labs/skills` (issue #705 known gap).
 - 2026-07-30 — **🏆 GODMODE v1.0 PUBLISHED to GitHub**: `https://github.com/zwennnnn/godmode`. 158 files / 20,197 lines. Tools + skill package all working.
