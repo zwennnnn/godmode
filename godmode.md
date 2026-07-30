@@ -110,50 +110,58 @@ All 4 roadmaps researched, written, and validated. 42 tech files total. Godmode 
 - **Worked on**:
   - **Phases 1–18** complete (17 roadmaps, 117 tech MDs + skills.md).
   - **Phase 19** complete (TOOLING + PUBLISH):
-    - `scripts/score.py` — weighted-scoring engine (decision-engine.md implemented); tested across 3 roadmaps × 3 stages (Build Tooling 86.2, Express 92.2, Kotlin 93.8).
-    - `scripts/research.py` — scaffolder for new tech MD files; `--interactive` + CLI flags.
-    - `SKILL.md` (root) — Agent Skills manifest for skills.sh / Claude Code / Cursor.
-    - **🟢 Published to GitHub**: `https://github.com/zwennnnn/godmode` (via GitHub Desktop, 2026-07-30).
-    - Verified: `main` branch tracking `origin/main`; commit `b3b5e85` (godmode v1.0) successfully pushed.
+    - `scripts/score.py` — weighted-scoring engine (working, tested).
+    - `scripts/research.py` — scaffolder for new tech MDs.
+    - `SKILL.md` (root) — Agent Skills manifest with keywords/author/version frontmatter.
+    - **🟢 Published to GitHub**: `https://github.com/zwennnnn/godmode`.
+  - **Phase 20** complete (SKILLS.SH INTEGRATION):
+    - `npx skills use zwennnnn/godmode@godmode` **works** — SKILL.md fetched + parsed correctly by the Vercel skills CLI.
+    - README + SKILL.md enriched with: keywords frontmatter, install badge, `npx skills add` instructions.
+    - Subagent research: **skills.sh has no public submit form.** Indexing driven by install telemetry + Vercel Labs curation. Known issue #705 — valid skills may not auto-appear in `npx skills find`.
 - **Decisions made**:
-  - **Phase 19 scope**: User asked to build actual tools + publish to GitHub.
-  - **score.py** implements decision-engine.md's weighted formula.
-  - **research.py** is a scaffolder; AI agent / human does the research, script generates the MD.
-  - **SKILL.md** makes godmode installable as a Claude Code / Cursor / skills.sh skill.
-  - **Publishing via GitHub Desktop** (user-driven, browser-free).
-- **Next**: v1.0 is live. Future work: add more roadmaps (blockchain, server-side-game-dev), iterate scoring, add MCP server, write more skills.
+  - Skill is technically installable (proven via `use` command).
+  - Discoverability via `npx skills find` requires either install volume or a back-channel issue on `vercel-labs/skills` requesting indexing.
+  - All skill metadata (keywords, author, version, install, homepage) populated per the spec.
+- **Next**: User files an indexing request issue on `vercel-labs/skills` (back-channel) OR waits for auto-indexing; commit + push updated SKILL.md + README.
 
 ---
 
 ## 🏆 STATUS — 2026-07-30
 
-# 🟢 GODMODE v1.0 IS LIVE
+# 🟢 GODMODE v1.0 — LIVE + SKILLS.SH READY
 
 **GitHub:** [https://github.com/zwennnnn/godmode](https://github.com/zwennnnn/godmode)
 
-**17 roadmaps + 117 tech MDs + working scoring engine + research scaffolder + SKILL.md.**
-
 | Component | Status |
 |-----------|--------|
-| Knowledge base | ✅ 17 roadmaps |
-| Tech files | ✅ 117 |
+| Knowledge base | ✅ 17 roadmaps / 117 tech MDs |
 | Scoring engine | ✅ `scripts/score.py` (working) |
 | Research scaffolder | ✅ `scripts/research.py` |
-| Schema validator | ✅ `scripts/validate-md.py` |
+| Schema validator | ✅ `scripts/validate-md.py` (0 errors) |
 | Roadmaps scraper | ✅ `scripts/scrape-roadmap.py` |
-| Agent Skills manifest | ✅ `SKILL.md` (root) |
+| Agent Skills manifest | ✅ `SKILL.md` (root, enriched) |
 | skills.sh guide | ✅ `skills.md` (root) |
-| Decision algorithm | ✅ `decision-engine.md` |
-| Stage profiles | ✅ `scoring/weights.json` |
-| Validator | ✅ 0 errors across 134 files |
-| **GitHub repo** | ✅ `zwennnnn/godmode` |
+| **Install test** | ✅ `npx skills use zwennnnn/godmode@godmode` works |
+| **Discoverability** | ⏳ Awaiting `npx skills find` indexing |
+| **GitHub repo** | ✅ `zwennnnn/godmode` (public) |
 
-**Install as a skill:**
+**Install as a skill (works today):**
 ```bash
-# In your project, point to the godmode directory.
-# Or use it via Claude Code with the SKILL.md auto-loaded.
-# Or publish to skills.sh registry.
+npx skills add zwennnnn/godmode
 ```
+
+---
+
+### Phase 20 (SKILLS.SH INTEGRATION) *(COMPLETE 2026-07-30)*
+
+- [x] Audited `SKILL.md` per Vercel Agent Skills spec — required fields present
+- [x] Added keywords/author/version/license/homepage/install to SKILL.md frontmatter
+- [x] Added skills.sh install badge + `npx skills add` instructions to README
+- [x] Tested `npx skills use zwennnnn/godmode@godmode` → SKILL.md fetched + parsed correctly ✅
+- [x] Tested `npx skills find godmode --owner zwennnnn` → "No skills found" (known indexing gap, issue #705)
+- [x] Subagent research: no public submit form; install telemetry + Vercel Labs curation drive indexing
+- [ ] **Pending user action**: file back-channel issue on `vercel-labs/skills` requesting indexing for `zwennnnn/godmode` (only known escalation path)
+- [ ] **Pending user action**: commit + push updated SKILL.md + README
 
 ---
 
@@ -181,6 +189,7 @@ All 4 roadmaps researched, written, and validated. 42 tech files total. Godmode 
 
 ## Recent Decisions
 
+- 2026-07-30 — **🏆 SKILLS.SH INTEGRATION COMPLETE**: SKILL.md enriched with keywords/author/version; README has install badge; `npx skills use zwennnnn/godmode` works. Awaiting back-channel indexing issue on `vercel-labs/skills` (issue #705 known gap).
 - 2026-07-30 — **🏆 GODMODE v1.0 PUBLISHED to GitHub**: `https://github.com/zwennnnn/godmode`. 158 files / 20,197 lines. Tools + skill package all working.
 - 2026-07-30 — **TOOLING SHIPPED**: `scripts/score.py` (weighted-scoring engine — working), `scripts/research.py` (scaffolder), `SKILL.md` (Agent Skills manifest). godmode is now functional + installable.
 - 2026-07-30 — **Phase 18 (People + Process roadmap) COMPLETE**: 6 tech MDs researched, written, and validated.

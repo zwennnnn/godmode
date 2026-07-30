@@ -4,6 +4,8 @@
 >
 > A curated knowledge base of **117+ technologies** from [roadmap.sh](https://roadmap.sh), organized across **17 roadmaps**, with a working **weighted-scoring engine** that picks the best tech for your project.
 
+[![Install with skills.sh](https://img.shields.io/badge/skills.sh-install-blue)](https://skills.sh) [![GitHub](https://img.shields.io/badge/GitHub-zwennnnn%2Fgodmode-black)](https://github.com/zwennnnn/godmode) [![MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+
 When you ask an AI coding agent (Claude Code, Cursor, Codex, etc.) "what database should I use" or "what's the best stack for a SaaS MVP", godmode:
 
 1. Reads the user's profile from `godmode.md`.
@@ -96,17 +98,16 @@ python scripts/research.py --name "Redis" --roadmap databases \
 
 ### 4. Install as an Agent Skill
 
+**Universal — install via skills.sh (works with Claude Code, Cursor, Codex):**
+```bash
+npx skills add zwennnnn/godmode
+```
+
 **For Claude Code (in a project):**
 ```bash
 # Place this directory at .claude/skills/godmode/ in your project.
 # Then Claude Code will auto-discover the SKILL.md.
 cp -r godmode/ .claude/skills/godmode/
-```
-
-**For skills.sh:**
-```bash
-# This directory IS the skill. Once published:
-npx skills add <your-github-user>/godmode
 ```
 
 **For Cursor:**

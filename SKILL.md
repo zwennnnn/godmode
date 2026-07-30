@@ -1,6 +1,20 @@
 ---
 name: godmode
 description: Weighted-scoring technology advisor with a curated knowledge base of 117+ technologies from roadmap.sh. Use when the user asks about technology choices, stacks, frameworks, languages, databases, infrastructure, AI tooling, mobile, design UX, security, QA testing, or any "which tech should I use" decision.
+keywords:
+  - technology-decision
+  - tech-stack
+  - architecture
+  - ai-tools
+  - framework-selection
+  - database-selection
+  - roadmap
+  - weighted-scoring
+author: zwennnnn
+version: 1.0.0
+license: MIT
+homepage: https://github.com/zwennnnn/godmode
+install: npx skills add zwennnnn/godmode
 ---
 
 # Godmode — Technology Advisor Skill
@@ -176,11 +190,11 @@ Every tech `.md` follows the schema in [templates/tech-md.md](templates/tech-md.
 This directory IS the skill. To install:
 
 ```bash
+# Universal (recommended) — via skills.sh registry:
+npx skills add zwennnnn/godmode
+
 # As a Claude Code project skill:
 # Place this directory at .claude/skills/godmode/ in any project.
-
-# As a skills.sh skill:
-npx skills add <your-github-user>/godmode
 
 # As a Cursor rule:
 # Add decision-engine.md + CLAUDE.md + godmode.md to .cursor/rules/
