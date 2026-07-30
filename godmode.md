@@ -210,6 +210,7 @@ npx skills add zwennnnn/godmode
 
 ## Recent Decisions
 
+- 2026-07-30 — **🏆 CONTRIBUTOR ONBOARDING COMPLETE**: `.github/CONTRIBUTING.md` + `CONTRIBUTORS.md` created. `@birkansiser` added as first external contributor. README has Contributors section + badge.
 - 2026-07-30 — **🏆 SKILLS.SH INTEGRATION COMPLETE**: SKILL.md enriched with keywords/author/version; README has install badge; `npx skills use zwennnnn/godmode` works. Awaiting back-channel indexing issue on `vercel-labs/skills` (issue #705 known gap).
 - 2026-07-30 — **🏆 GODMODE v1.0 PUBLISHED to GitHub**: `https://github.com/zwennnnn/godmode`. 158 files / 20,197 lines. Tools + skill package all working.
 - 2026-07-30 — **TOOLING SHIPPED**: `scripts/score.py` (weighted-scoring engine — working), `scripts/research.py` (scaffolder), `SKILL.md` (Agent Skills manifest). godmode is now functional + installable.
