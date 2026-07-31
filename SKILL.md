@@ -23,6 +23,13 @@ install: npx skills add zwennnnn/godmode
 
 When the user asks for help making a technology decision — "what database should I use", "should I use Next.js or SvelteKit", "best stack for a SaaS MVP", "which vector database", "React Native vs Flutter" — load and follow the protocols below.
 
+The skill also defines **two slash commands** that go beyond the basic tech-decision flow:
+
+- **`/godhunt [market]`** — autonomously find a new ProductHunt product that fits the user's market and can be built cheaply with an AI API; create a `projects/<slug>/` scaffold with plan + tech stack.
+- **`/godproject <slug>`** — scaffold the actual code for an existing `projects/<slug>/` (must exist from `/godhunt` or hand-created).
+
+See the **Slash Commands** section in `CLAUDE.md` for the full protocol. Both commands are **autonomous** — never ask the user clarifying questions beyond the slash argument.
+
 ---
 
 ## 1. Boot sequence (every session)

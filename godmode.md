@@ -3,6 +3,8 @@
 > **Auto-managed by the agent.** The agent writes here at the end of every decision / phase / session.
 > On a fresh install this file is mostly empty. The agent populates it as the user makes decisions.
 > **This file is per-installation / per-project.** It does not ship any data from the godmode source repo.
+>
+> **Installed godmode version:** see [`README.md`](README.md) and the godmode repo's release notes for what's new in this version.
 
 ---
 

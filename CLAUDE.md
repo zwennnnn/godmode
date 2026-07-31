@@ -90,6 +90,81 @@ After the user accepts a recommendation (or makes a decision), **update `godmode
 
 ---
 
+## Slash Commands
+
+godmode defines **two slash commands** that extend the basic tech-decision flow. They are **autonomous** — never ask the user for input beyond the slash argument.
+
+### `/godhunt [market]`
+
+**What it does:** Find a new product on ProductHunt that fits the user's market and can be built cheaply (AI API only), then create a `projects/<slug>/` scaffold with plan + tech stack.
+
+**Protocol (the agent must follow this exactly):**
+
+1. **Read the market** from `godmode.md` → `## Current User Profile` → `primary_domain` (or derive from project context if not set). If still unclear, default to `"global"`.
+2. **Fetch today's ProductHunt launches**:
+   - Use WebSearch: `site:producthunt.com today launches` or use the GraphQL API.
+   - Alternative: scrape `https://www.producthunt.com/launches` (HTML).
+3. **Filter + score** each candidate (autonomous; no user input):
+   - **Market fit** (0–100): Does the product target the user's market?
+   - **Quality** (0–100): Traction (votes, comments), team credibility, comment quality.
+   - **Build feasibility** (0–100): Can the MVP be built with **only** an AI API + a web/mobile stack (no complex infra)?
+4. **Pick the top candidate** with composite score ≥ 80 (compute as `0.4·market + 0.3·quality + 0.3·feasibility`).
+5. **Decide customization mode**:
+   - If the candidate is **highly original** (no direct competitor in `roadmaps/`): build **as-is** with light godmode-curated feature additions.
+   - Otherwise: build a **customized version** with 3–5 market-specific features (e.g. localization, payments in local currency, regulatory compliance).
+6. **Run the scaffolder**:
+   ```bash
+   python scripts/hunt.py create \
+       --name "<Display Name>" \
+       --slug "<url-slug>" \
+       --ph-url "<producthunt-url>" \
+       --market "<market>" \
+       --mode customize|as-is \
+       --market-score NN --feasibility-score NN --quality-score NN \
+       --short-description "..." --market-justification "..." \
+       --mvp-scope "..." --features "f1,f2,f3,..." \
+       --frontend "..." --backend "..." --db "..." --auth "..." --deploy "..." \
+       --customizations "..." --ph-description "..."
+   ```
+7. **Log** the discovery to `godmode.md` under `## Recent Decisions`.
+8. **Tell the user**: "Project scaffolded at `projects/<slug>/`. Run `/godproject <slug>` to scaffold the code."
+
+### `/godproject <slug>`
+
+**What it does:** Scaffold the actual code for an existing `projects/<slug>/` (must exist from `/godhunt` or be hand-created).
+
+**Protocol:**
+
+1. **Verify** `projects/<slug>/` exists and has `README.md` (from `/godhunt` or hand-written).
+2. **Read the tech stack** from the README's `## Tech stack` table.
+3. **Optionally re-score** via `python scripts/score.py --stage mvp-speed` to confirm.
+4. **Generate the scaffold**:
+   ```bash
+   python scripts/project.py init --name <slug> --framework <nextjs|fastapi|express|react-vite|django|go-gin>
+   ```
+5. **Scaffold includes**: `package.json` (or `requirements.txt` / `go.mod`), `src/` minimal app, `.gitignore`, `.env.example`.
+6. **Log** to `godmode.md`.
+
+### Rules
+
+- ❌ **Never** ask the user clarifying questions inside `/godhunt` or `/godproject`. Make decisions autonomously using `godmode.md` + scoring.
+- ✅ **Always** invoke the Python script with all required arguments — no shortcuts.
+- ✅ **Always** log to `godmode.md` under `## Recent Decisions`.
+- ✅ **Always** tell the user the project path + next step.
+
+---
+
+## Decision Engine — Self-test
+
+After every Phase completion (a roadmap category finishes), run a self-test:
+
+1. Pick a sample scenario from `godmode.md` (or invent one).
+2. Run the full flow end-to-end.
+3. Verify the output makes sense.
+4. If the top-3 all score above 80 with no clear winner, the weights need rebalancing → update [`scoring/weights.json`](scoring/weights.json) and re-run.
+
+---
+
 ## File Map (quick reference)
 
 | File | Purpose | Owned by |

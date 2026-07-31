@@ -116,6 +116,32 @@ python scripts/research.py --name "Redis" --roadmap databases \
   --one-liner "In-memory data store used as cache, broker, leaderboard, and pub/sub."
 ```
 
+### 3b. `/godhunt` — Autonomous ProductHunt discovery
+
+When the user types `/godhunt`, the agent:
+
+1. Reads the user's market from `godmode.md` (or infers from context).
+2. Fetches today's top ProductHunt launches (via WebSearch / WebFetch).
+3. Scores each on **market fit**, **quality**, **build feasibility** (with AI API only).
+4. Picks the top candidate (composite ≥ 80).
+5. Decides: **customize** (add 3–5 market-specific features) or **as-is**.
+6. Runs `python scripts/hunt.py create --name ... --slug ... --market ... --mode customize|as-is ...` to scaffold `projects/<slug>/`.
+7. Logs to `godmode.md`.
+
+The agent **never asks the user clarifying questions** during `/godhunt` — all decisions are made from `godmode.md` + the scoring engine.
+
+### 3c. `/godproject <slug>` — Scaffold code
+
+After `/godhunt` creates the plan, the user types `/godproject <slug>`. The agent:
+
+1. Reads `projects/<slug>/README.md` for the chosen tech stack.
+2. Re-scores via `score.py` to confirm.
+3. Runs `python scripts/project.py init --name <slug> --framework <nextjs|fastapi|express|...>`.
+4. Generates `package.json` / `requirements.txt` + minimal `src/` + `.gitignore` + `.env.example`.
+5. Logs to `godmode.md`.
+
+After this, the user (or agent) starts implementing against the generated scaffold.
+
 ### 4. Install as an Agent Skill
 
 **Universal — install via skills.sh (works with Claude Code, Cursor, Codex):**
@@ -139,6 +165,47 @@ cp CLAUDE.md godmode.md rules.md decision-engine.md .cursor/rules/
 ---
 
 ## How the scoring works
+
+The algorithm is documented in [`decision-engine.md`](decision-engine.md). Summary:
+
+```
+score(tech, stage) = Σ weight[stage][criterion] × tech.score[criterion]
+```
+
+For each tech in a roadmap, godmode reads the scoring matrix from its `.md` file, multiplies each criterion score by the stage weight (from `scoring/weights.json`), and sums. Top 3 by score become recommendations.
+
+---
+
+## Slash Commands (Autonomous Workflows)
+
+godmode defines two autonomous slash commands for **agent-driven workflows** that go beyond tech recommendations:
+
+### `/godhunt [market]`
+
+**Discover → score → scaffold** a new product from ProductHunt.
+
+1. Agent fetches today's PH launches (WebSearch / WebFetch).
+2. Filters by user's market (read from `godmode.md`).
+3. Scores each on **market fit + quality + build feasibility** (AI-API only).
+4. Picks the top candidate (composite ≥ 80).
+5. Customizes (or builds as-is) with market-specific features.
+6. Creates `projects/<slug>/` with `README.md` + `PLAN.md` + scaffold.
+
+**Fully autonomous** — no user input required.
+
+### `/godproject <slug>`
+
+Scaffold the code for an existing project:
+
+```bash
+python scripts/project.py init --name <slug> --framework <nextjs|fastapi|express|react-vite|django|go-gin>
+```
+
+Generates `package.json` / `requirements.txt` + minimal `src/` + `.env.example`.
+
+---
+
+
 
 The algorithm is documented in [`decision-engine.md`](decision-engine.md). Summary:
 
