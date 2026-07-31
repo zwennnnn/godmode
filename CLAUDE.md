@@ -90,9 +90,40 @@ After the user accepts a recommendation (or makes a decision), **update `godmode
 
 ---
 
-## Slash Commands
+## Slash Commands & Magic Phrases
 
-godmode defines **two slash commands** that extend the basic tech-decision flow. They are **autonomous** — never ask the user for input beyond the slash argument.
+godmode defines **two workflows** (godhunt + godproject) that extend the basic tech-decision flow. They are **autonomous** — never ask the user for input beyond the slash argument.
+
+### Invocation (3 ways — try them in order)
+
+| # | Method | Example | How |
+|---|--------|---------|-----|
+| 1 | **Slash command** | `/godhunt Turkey` | Claude Code CLI; type `/` to see menu |
+| 2 | **Skill** | `/skill godhunt Turkey` | Claude Code CLI; explicit skill invocation |
+| 3 | **Magic phrase** (no slash needed) | `godhunt Turkey` or `find a ProductHunt product for Turkey` | Works in ANY agent — Claude Code, Claude.ai, Cursor, etc. |
+
+If slash commands don't trigger (different agent version, web client, etc.), use **magic phrase** — the agent detects the phrase and runs the protocol.
+
+### Magic Phrase Triggers
+
+The agent must detect these patterns in the user's message and trigger the matching protocol:
+
+**For /godhunt:**
+- `godhunt <market>`
+- `god hunt <market>`
+- `hunt for a product in <market>`
+- `find a product on producthunt for <market>`
+- `producthunt <market>`
+- `discover <market> tech gap`
+
+**For /godproject:**
+- `godproject <slug>`
+- `god project <slug>`
+- `scaffold project <slug>`
+- `build the code for <slug>`
+- `scaffold code for <slug> project`
+
+If `<market>` or `<slug>` is missing in the phrase, fall back to `godmode.md` → `## Current User Profile` (for market) or prompt-once (for slug — slug is required, so tell user).
 
 ### `/godhunt [market]`
 

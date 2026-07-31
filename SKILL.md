@@ -23,7 +23,31 @@ install: npx skills add zwennnnn/godmode
 
 When the user asks for help making a technology decision — "what database should I use", "should I use Next.js or SvelteKit", "best stack for a SaaS MVP", "which vector database", "React Native vs Flutter" — load and follow the protocols below.
 
-The skill also defines **two slash commands** that go beyond the basic tech-decision flow:
+The skill also defines **two workflows** (godhunt + godproject) that go beyond the basic tech-decision flow. They are **autonomous** — never ask the user for input beyond the slash argument.
+
+### Invocation (3 ways — try them in order)
+
+1. **Slash command**: `/godhunt Turkey` or `/godproject my-project`
+2. **Skill**: `/skill godhunt Turkey`
+3. **Magic phrase** (no slash needed): `godhunt Turkey` or `find a ProductHunt product for Turkey`
+
+If slash commands don't trigger (different agent version, web client, etc.), use **magic phrase** — the agent detects the phrase and runs the protocol.
+
+### Magic Phrase Triggers (no slash needed)
+
+**For /godhunt:**
+- `godhunt <market>`
+- `god hunt <market>`
+- `hunt for a product in <market>`
+- `find a product on producthunt for <market>`
+- `producthunt <market>`
+
+**For /godproject:**
+- `godproject <slug>`
+- `god project <slug>`
+- `scaffold project <slug>`
+- `build the code for <slug>`
+- `scaffold code for <slug> project`
 
 - **`/godhunt [market]`** — autonomously find a new ProductHunt product that **doesn't exist yet in the user's market** (e.g. Turkey) but could succeed there and can be built cheaply with an AI API. Per-product gap analysis + scoring, then `projects/<slug>/` scaffold with plan + tech stack + market-specific customizations.
 - **`/godproject <slug>`** — scaffold the actual code for an existing `projects/<slug>/` (must exist from `/godhunt` or hand-created).
