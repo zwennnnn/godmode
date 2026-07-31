@@ -26,14 +26,6 @@ godmode is built by a community. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the 
 
 Want to contribute? See [`.github/CONTRIBUTING.md`](.github/CONTRIBUTING.md) for guidelines.
 
-When you ask an AI coding agent (Claude Code, Cursor, Codex, etc.) "what database should I use" or "what's the best stack for a SaaS MVP", godmode:
-
-1. Reads the user's profile from `godmode.md`.
-2. Picks the right stage profile (`mvp-speed`, `production-scale`, `research-experimental`, `enterprise-compliance`).
-3. Runs `python scripts/score.py` to compute weighted scores from the curated `.md` files.
-4. Returns **top 3 recommendations** with full transparency — weights, scores, sources, and trade-offs.
-5. Logs the decision to `godmode.md` so the next session continues seamlessly.
-
 ---
 
 ## What's inside
@@ -116,19 +108,19 @@ python scripts/research.py --name "Redis" --roadmap databases \
   --one-liner "In-memory data store used as cache, broker, leaderboard, and pub/sub."
 ```
 
-### 3b. `/godhunt` — Autonomous ProductHunt discovery
+### 3b. `/godhunt [market]` — Autonomous ProductHunt discovery
 
-When the user types `/godhunt`, the agent:
+When the user types `/godhunt Turkey` (or any market), the agent:
 
-1. Reads the user's market from `godmode.md` (or infers from context).
-2. Fetches today's top ProductHunt launches (via WebSearch / WebFetch).
-3. Scores each on **market fit**, **quality**, **build feasibility** (with AI API only).
-4. Picks the top candidate (composite ≥ 80).
-5. Decides: **customize** (add 3–5 market-specific features) or **as-is**.
-6. Runs `python scripts/hunt.py create --name ... --slug ... --market ... --mode customize|as-is ...` to scaffold `projects/<slug>/`.
+1. Fetches today's top ProductHunt launches (via WebSearch / WebFetch).
+2. **Per-product gap analysis**: for each candidate, WebSearch `"<product>" <market>` + `"<product>" <market> competitor` to see if it **already exists** or has a strong local competitor in the target market.
+3. Scores each on **market gap** (0–100, high = absent in market) + **quality** (traction, team) + **build feasibility** (AI API only) + **market fit potential** (will it succeed here?).
+4. Composite ≥ 80 → pick top candidate.
+5. Decides: **customize** (add 3–5 market-specific features — localization, local payments like iyzico for Turkey, regulatory compliance like KVKK) or **as-is**.
+6. Runs `python scripts/hunt.py create ...` to scaffold `projects/<slug>/` with README.md + PLAN.md.
 7. Logs to `godmode.md`.
 
-The agent **never asks the user clarifying questions** during `/godhunt` — all decisions are made from `godmode.md` + the scoring engine.
+The agent **never asks the user clarifying questions** during `/godhunt` — all decisions are made from `godmode.md` + the scoring engine + the gap analysis.
 
 ### 3c. `/godproject <slug>` — Scaffold code
 
@@ -182,16 +174,16 @@ godmode defines two autonomous slash commands for **agent-driven workflows** tha
 
 ### `/godhunt [market]`
 
-**Discover → score → scaffold** a new product from ProductHunt.
+**Discover → gap-analyze → score → scaffold** a new product from ProductHunt that fits a market gap.
 
 1. Agent fetches today's PH launches (WebSearch / WebFetch).
-2. Filters by user's market (read from `godmode.md`).
-3. Scores each on **market fit + quality + build feasibility** (AI-API only).
+2. For each candidate, runs a **per-product gap analysis**: does it already exist in `<market>`? Are there strong local competitors?
+3. Scores each on **market gap** + **quality** + **build feasibility** (AI-API only) + **market fit potential**.
 4. Picks the top candidate (composite ≥ 80).
-5. Customizes (or builds as-is) with market-specific features.
+5. Customizes (or builds as-is) with market-specific features (localization, local payments, regulatory compliance).
 6. Creates `projects/<slug>/` with `README.md` + `PLAN.md` + scaffold.
 
-**Fully autonomous** — no user input required.
+**Fully autonomous** — no user input required. Market argument defaults to the value in `godmode.md`.
 
 ### `/godproject <slug>`
 

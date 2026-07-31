@@ -25,7 +25,7 @@ When the user asks for help making a technology decision — "what database shou
 
 The skill also defines **two slash commands** that go beyond the basic tech-decision flow:
 
-- **`/godhunt [market]`** — autonomously find a new ProductHunt product that fits the user's market and can be built cheaply with an AI API; create a `projects/<slug>/` scaffold with plan + tech stack.
+- **`/godhunt [market]`** — autonomously find a new ProductHunt product that **doesn't exist yet in the user's market** (e.g. Turkey) but could succeed there and can be built cheaply with an AI API. Per-product gap analysis + scoring, then `projects/<slug>/` scaffold with plan + tech stack + market-specific customizations.
 - **`/godproject <slug>`** — scaffold the actual code for an existing `projects/<slug>/` (must exist from `/godhunt` or hand-created).
 
 See the **Slash Commands** section in `CLAUDE.md` for the full protocol. Both commands are **autonomous** — never ask the user clarifying questions beyond the slash argument.

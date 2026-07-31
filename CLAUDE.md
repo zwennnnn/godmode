@@ -96,7 +96,7 @@ godmode defines **two slash commands** that extend the basic tech-decision flow.
 
 ### `/godhunt [market]`
 
-**What it does:** Find a new product on ProductHunt that fits the user's market and can be built cheaply (AI API only), then create a `projects/<slug>/` scaffold with plan + tech stack.
+**What it does:** Find a new product on ProductHunt that **doesn't exist yet in the user's market** (e.g. Turkey) but **could succeed there** and can be built cheaply (AI API only). Then create a `projects/<slug>/` scaffold with plan + tech stack.
 
 **Protocol (the agent must follow this exactly):**
 
@@ -104,14 +104,22 @@ godmode defines **two slash commands** that extend the basic tech-decision flow.
 2. **Fetch today's ProductHunt launches**:
    - Use WebSearch: `site:producthunt.com today launches` or use the GraphQL API.
    - Alternative: scrape `https://www.producthunt.com/launches` (HTML).
-3. **Filter + score** each candidate (autonomous; no user input):
-   - **Market fit** (0–100): Does the product target the user's market?
-   - **Quality** (0–100): Traction (votes, comments), team credibility, comment quality.
-   - **Build feasibility** (0–100): Can the MVP be built with **only** an AI API + a web/mobile stack (no complex infra)?
-4. **Pick the top candidate** with composite score ≥ 80 (compute as `0.4·market + 0.3·quality + 0.3·feasibility`).
+3. **For each candidate, do a per-product gap analysis**:
+   - WebSearch: `"<product name>" <market>` and `"<product name>" <market> competitor` and `"<product name>" <market> price availability`.
+   - Determine whether the product **already exists or has a strong local competitor** in `<market>`.
+   - Score:
+     - **Market gap** (0–100): How absent is this category in `<market>`? (high = good gap, low = saturated)
+     - **Quality** (0–100): Traction (votes, comments), team credibility, comment quality.
+     - **Build feasibility** (0–100): Can the MVP be built with **only** an AI API + a web/mobile stack (no complex infra)?
+     - **Market fit potential** (0–100): If we build this in `<market>`, will it succeed? Consider localization needs, regulatory constraints, purchasing power, infrastructure availability.
+4. **Pick the top candidate** with composite score ≥ 80:
+   ```
+   composite = 0.35·market_gap + 0.20·quality + 0.25·feasibility + 0.20·market_fit_potential
+   ```
+   Bias is on **market gap** (the "this doesn't exist here yet" signal) + **feasibility** (cheap to build).
 5. **Decide customization mode**:
-   - If the candidate is **highly original** (no direct competitor in `roadmaps/`): build **as-is** with light godmode-curated feature additions.
-   - Otherwise: build a **customized version** with 3–5 market-specific features (e.g. localization, payments in local currency, regulatory compliance).
+   - If the candidate is **highly original** (no direct local competitor in `<market>`): build **as-is** with light godmode-curated feature additions.
+   - Otherwise: build a **customized version** with 3–5 market-specific features (localization, local payment methods like iyzico for Turkey, regulatory compliance like KVKK, etc.).
 6. **Run the scaffolder**:
    ```bash
    python scripts/hunt.py create \
