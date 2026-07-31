@@ -1,11 +1,14 @@
+---
+description: Discover today's ProductHunt launches, find products missing from a target market (default: read from godmode.md), score on market-gap + quality + feasibility + fit, then scaffold projects/<slug>/ with a customized plan. Fully autonomous.
+argument-hint: [market]
+allowed-tools: WebSearch, WebFetch, Bash, Read, Write, Edit, Glob
+---
+
 # /godhunt — Autonomous ProductHunt → Project Scaffold
 
 > **Trigger:** user types `/godhunt [market]` (e.g. `/godhunt Turkey`).
+> **Argument** (`$ARGUMENTS`): target market (e.g. `Turkey`, `Brazil`, `Indonesia`, `global`). Optional — if omitted, read from `godmode.md` → `## Current User Profile` → `primary_domain`. If still unclear, default to `"global"`.
 > **Behavior:** discover today's ProductHunt launches, find products missing from `<market>`, score, and scaffold a `projects/<slug>/` directory. Fully autonomous — no user input beyond the slash argument.
-
-## Argument
-
-`[market]` (optional) — target market (e.g. `Turkey`, `Brazil`, `Indonesia`, `global`). If omitted, read from `godmode.md` → `## Current User Profile` → `primary_domain`. If still unclear, default to `"global"`.
 
 ## Protocol (agent must follow exactly)
 
@@ -13,7 +16,7 @@
    - `WebSearch`: `site:producthunt.com today launches` or `site:producthunt.com launched yesterday`.
    - Alternative: scrape `https://www.producthunt.com/launches`.
 
-2. **Per-product gap analysis in `<market>`.** For each candidate:
+2. **Per-product gap analysis in `$ARGUMENTS`.** For each candidate:
    - `WebSearch`: `"<product name>" <market>`
    - `WebSearch`: `"<product name>" <market> competitor`
    - Determine: does the product already exist or have a strong local competitor in `<market>`?
